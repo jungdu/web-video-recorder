@@ -1,12 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 
 import {formatMinSec} from "utils/foramt"
 import {centerCss, centerYCss} from "utils/style"
 import { useRecoilState } from "recoil";
-import { recordingAtom } from "recoil/recordState";
+import { recordingAtom, currentStreamAtom, recordedBlobAtom } from "recoil/recordState";
 import { useDuration } from "hooks";
 import { css } from "@emotion/react";
+import MediaSourceRecorder from "utils/MediaSourceRecorder";
 
 const Self = styled.div`
   position: relative;
@@ -40,17 +41,41 @@ const CurrentTime = styled.span<{recording: boolean}>`
 
 const PreviewController: React.FC = () => {
   const [recording, setRecording] = useRecoilState(recordingAtom);
+  const [currentStream] = useRecoilState(currentStreamAtom);
+  const [_, setRecordedBlob] = useRecoilState(recordedBlobAtom);
   const {duration, setCounting} = useDuration();
+  const recorderRef = useRef<MediaSourceRecorder|null>(null)
   
   const handleToggleRecord = () => {
     setRecording(currentVal => !currentVal);
   }
 
+  // TODO 이 로직들도 컴포넌트에 있을 필요는 없다.
+  const startRecord = () => {
+    if(currentStream){
+      setCounting(true);
+      recorderRef.current = new MediaSourceRecorder(currentStream, (blob) => {
+        console.log("blob :", blob)
+        setRecordedBlob(blob);
+      })
+      recorderRef.current.start()
+    }else{
+      throw new Error("No stream to record")
+    }
+  }
+
+  const endRecord = () => {
+    setCounting(false);
+    if(recorderRef.current){
+      recorderRef.current.stop()
+    }
+  }
+
   useEffect(() => {
     if(recording){
-      setCounting(true);
+      startRecord()
     }else{
-      setCounting(false);
+      endRecord()
     }
   }, [recording]);
 
