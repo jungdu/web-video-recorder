@@ -2,13 +2,26 @@ import React from "react";
 import styled from "@emotion/styled";
 
 import {VideoCamButton as VideoCamButtonOrig, ScreenButton as ScreenButtonOrig} from "components/SourceSelectorButton"
+import { centerYCss } from "utils/style";
 
 const VideoCamButton = styled(VideoCamButtonOrig)`
+  ${centerYCss};
+  transition: transform 180ms;
   right: 65%;
+
+  &:hover{
+    transform: translate3d(0, -50%, 0) scale(1.2);
+  }
 `
 
 const ScreenButton = styled(ScreenButtonOrig)`
+  ${centerYCss};
+  transition: transform 180ms;
   left: 65%;
+
+  &:hover{
+    transform: translate3d(0, -50%, 0) scale(1.2);
+  }
 `
 
 const Self = styled.div`
@@ -22,8 +35,8 @@ const Self = styled.div`
 
 const SourceSelector: React.FC = () => {
   return <Self>
-    <VideoCamButton></VideoCamButton>
-    <ScreenButton></ScreenButton>
+    <VideoCamButton onClick={()=>{}}></VideoCamButton>
+    <ScreenButton  onClick={()=>{}}></ScreenButton>
   </Self>;
 };
 
