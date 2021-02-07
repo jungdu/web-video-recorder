@@ -1,17 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 
+import { useRecoilState } from "recoil";
+import {currentStreamAtom} from "recoil/recordState"
+
 import PreviewController from "components/PreviewController"
 import SourceSelector from "components/SourceSelector";
 
 const Self = styled.div`
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%, -10%);
+  margin: 120px auto;
   background: #101010;
   width: 100%;
   max-width: 700px;
+  filter: drop-shadow(0px 9px 15px rgba(0, 0, 0, 0.4));
 `;
 
 const StyledVideo = styled.video`
@@ -24,7 +25,7 @@ const StyledVideoContainer = styled.div`
 `
 
 const Preview: React.FC = () => {
-  const [currentStream, setCurrentStream] = useState<MediaStream | null>(null);
+  const [currentStream, setCurrentStream] = useRecoilState(currentStreamAtom)
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleGetStream = (stream: MediaStream) => {
