@@ -5,12 +5,11 @@ import {getDisplayMedia, getUserMedia} from "utils/mediaDevices"
 
 import videoCamSvg from "images/videocam.svg"
 import personalVideoSvg from "images/personal_video.svg"
-import { noop } from "utils";
 
 interface SourceButtonProps {
   className?: string;
   src: string;
-  onClick?: (e: React.MouseEvent) => void;
+  onClick: (e: React.MouseEvent) => void;
 }
 
 const StyledSourceButton = styled.div`
@@ -36,29 +35,30 @@ const SourceButton: React.FC<SourceButtonProps> = ({className, children, src, on
   </StyledSourceButton>
 };
 
-export const VideoCamButton:React.FC<Omit<SourceButtonProps, "src"> & {
+export const VideoCamButton:React.FC<{
+  className?: string,
   onGetStream: (stream: MediaStream) => void,
   onGetStreamError: (error:Error) => void,
-}> = ({onGetStream = noop, onGetStreamError, onClick = noop, ...restProps}) => {
+}> = ({onGetStream, onGetStreamError, className}) => {
   const handleClick = (e: React.MouseEvent) => {
-    getUserMedia({video: true, audio: true}).then(stream => {
+    getUserMedia({video: true, audio: false}).then(stream => {
       onGetStream(stream);
     }).catch(e => {
       onGetStreamError(e)
     })
   }
 
-  return <SourceButton src={videoCamSvg} onClick={handleClick} {...restProps}>
+  return <SourceButton className={className} src={videoCamSvg} onClick={handleClick}>
     Camera
   </SourceButton>
 }
 
-export const ScreenButton:React.FC<Omit<SourceButtonProps, "src">& {
+export const ScreenButton:React.FC<{
+  className?: string,
   onGetStream: (stream: MediaStream) => void,
   onGetStreamError: (error:Error) => void,
-}> = ({onGetStream, onGetStreamError, onClick = noop, ...restProps}) => {
+}> = ({className, onGetStream, onGetStreamError}) => {
   const handleClick = (e: React.MouseEvent) => {
-    onClick(e);
     getDisplayMedia({
       video: true,
     }).then(stream => {
@@ -68,7 +68,7 @@ export const ScreenButton:React.FC<Omit<SourceButtonProps, "src">& {
     })
   }
 
-  return <SourceButton src={personalVideoSvg} onClick={handleClick} {...restProps}>
+  return <SourceButton className={className} src={personalVideoSvg} onClick={handleClick}>
     Screen
   </SourceButton>
 }

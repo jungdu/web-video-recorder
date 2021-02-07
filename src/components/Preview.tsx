@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 
 import PreviewController from "components/PreviewController"
@@ -15,27 +15,38 @@ const Self = styled.div`
 `;
 
 const StyledVideo = styled.video`
-  position:absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
+  width: 100%;
 `
 
 const StyledVideoContainer = styled.div`
   position: relative;
   width: 100%;
-  padding-top: 60%;
 `
 
-
 const Preview: React.FC = () => {
+  const [currentStream, setCurrentStream] = useState<MediaStream | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleGetStream = (stream: MediaStream) => {
+    setCurrentStream(stream);
+  }
+
+  const handleGetStreamError = (error: Error) => {
+    throw error;
+  }
+
+  useEffect(() => {
+    if(currentStream && videoRef.current){
+      videoRef.current.srcObject = currentStream;
+    }
+  }, [currentStream])
+
   return <Self>
     <StyledVideoContainer>
-      <StyledVideo></StyledVideo>
+      <StyledVideo ref={videoRef} autoPlay></StyledVideo>
     </StyledVideoContainer>
     <PreviewController></PreviewController>
-    <SourceSelector></SourceSelector>
+    {!currentStream && <SourceSelector onGetStream={handleGetStream} onGetStreamError={handleGetStreamError}></SourceSelector>}
   </Self>;
 };
 

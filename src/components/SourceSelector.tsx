@@ -33,10 +33,18 @@ const Self = styled.div`
   background:rgba(0,0,0, 0.7);
 `;
 
-const SourceSelector: React.FC = () => {
+interface SourceSelectorProps {
+  onGetStream:(stream: MediaStream) => void;
+  onGetStreamError: (error: Error) => void;
+}
+
+const SourceSelector: React.FC<SourceSelectorProps> = ({
+  onGetStream,
+  onGetStreamError,
+}) => {
   return <Self>
-    <VideoCamButton onClick={()=>{}}></VideoCamButton>
-    <ScreenButton  onClick={()=>{}}></ScreenButton>
+    <VideoCamButton onGetStream={onGetStream} onGetStreamError={onGetStreamError}></VideoCamButton>
+    <ScreenButton onGetStream={onGetStream} onGetStreamError={onGetStreamError}></ScreenButton>
   </Self>;
 };
 
