@@ -24,6 +24,11 @@ const RecordedVideo: React.FC = () => {
     if(recordedBlob){
       if(videoRef.current){
         videoRef.current.src = window.URL.createObjectURL(recordedBlob);
+        videoRef.current.onloadedmetadata = () => {
+          if(videoRef.current && videoRef.current.duration === Infinity){
+            videoRef.current.currentTime = 1e101;
+          }
+        }
       }else{
         throw new Error("no videoRef current")
       }
