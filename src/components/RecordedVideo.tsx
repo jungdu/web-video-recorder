@@ -1,9 +1,22 @@
 import React, { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 import { useRecoilState } from "recoil";
-import { recordedBlobAtom } from "recoil/recordState";
+import { recordedBlobAtom } from "recoilStates/recordState";
 
-const Self = styled.div`
+import DownloadButton from "components/DownloadButton";
+
+const StyledDownloadButton = styled(DownloadButton)`
+  margin-left: auto;
+`
+
+const StyledHeader = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 25px;
+  margin-bottom: 20px;
+`
+
+const StyledRecordedVideo = styled.div`
   margin: 0 auto;
   max-width: 700px;
 `;
@@ -35,12 +48,12 @@ const RecordedVideo: React.FC = () => {
     }
   }, [recordedBlob])
 
-  return <Self>
-    <h2>저장된 영상</h2>
+  return <StyledRecordedVideo>
+    <StyledHeader>저장된 영상<StyledDownloadButton/></StyledHeader>
     <StyledVideoContainer>
       <StyledVideo ref={videoRef} controls/>
     </StyledVideoContainer>
-  </Self>;
+  </StyledRecordedVideo>;
 };
 
 export default RecordedVideo;
