@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import {formatMinSec} from "utils/foramt"
 import {centerCss, centerYCss} from "utils/style"
 import { useRecoilState } from "recoil";
-import { recordingAtom, currentStreamAtom, recordedBlobAtom } from "recoil/recordState";
+import { recordingAtom, currentStreamAtom, recordedBlobAtom } from "recoilStates/recordState";
 import { useDuration } from "hooks";
 import { css } from "@emotion/react";
 import MediaSourceRecorder from "utils/MediaSourceRecorder";
