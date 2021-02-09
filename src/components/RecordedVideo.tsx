@@ -49,7 +49,7 @@ const RecordedVideo: React.FC = () => {
   }, [recordedBlob])
 
   return <StyledRecordedVideo>
-    <StyledHeader>저장된 영상<StyledDownloadButton/></StyledHeader>
+    <StyledHeader>녹화된 영상<StyledDownloadButton/></StyledHeader>
     <StyledVideoContainer>
       <StyledVideo ref={videoRef} controls/>
     </StyledVideoContainer>
