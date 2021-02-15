@@ -12,12 +12,18 @@ import {
 import { useDuration } from 'hooks';
 import { css } from '@emotion/react';
 import MediaSourceRecorder from 'utils/MediaSourceRecorder';
+import OpenSourceSelectorButton from './OpenSourceSelectorButton';
 
 const Self = styled.div`
   position: relative;
   width: 100%;
   height: 75px;
 `;
+
+const StyledOpenSourceSelectorButton = styled(OpenSourceSelectorButton)`
+  ${centerYCss};
+  left: 27px;
+`
 
 const RecordButton = styled.div<{ recording: boolean }>`
   ${centerCss}
@@ -89,6 +95,7 @@ const PreviewController: React.FC = () => {
 
   return (
     <Self>
+      <StyledOpenSourceSelectorButton />
       <RecordButton
         onClick={handleToggleRecord}
         recording={recording}
