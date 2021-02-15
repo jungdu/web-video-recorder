@@ -1,5 +1,5 @@
 import React from 'react';
-import Preview from "components/Preview"
+import Preview from 'components/Preview';
 
 export default {
   component: Preview,
@@ -7,5 +7,5 @@ export default {
 };
 
 export const DefaultPreview = () => {
-  return <Preview></Preview>
-}
+  return <Preview></Preview>;
+};

@@ -12,22 +12,28 @@ declare global {
 }
 
 export const getDisplayMedia = (constraints?: MediaStreamConstraints) => {
-  return navigator.mediaDevices.getDisplayMedia(constraints)
-}
+  return navigator.mediaDevices.getDisplayMedia(constraints);
+};
 
-export const getUserMedia = (constraints: MediaStreamConstraints):Promise<MediaStream> => {
+export const getUserMedia = (
+  constraints: MediaStreamConstraints
+): Promise<MediaStream> => {
   return new Promise<MediaStream>((resolve, reject) => {
-    navigator.getUserMedia(constraints, function(stream){
-      resolve(stream);
-    }, function(error){
-      reject(error)
-    })
-  })
-}
+    navigator.getUserMedia(
+      constraints,
+      function (stream) {
+        resolve(stream);
+      },
+      function (error) {
+        reject(error);
+      }
+    );
+  });
+};
 
 export const isPermissionDeniedError = (error: Error) => {
-  if(error.name === "NotAllowedError"){
+  if (error.name === 'NotAllowedError') {
     return true;
   }
   return false;
-}
+};

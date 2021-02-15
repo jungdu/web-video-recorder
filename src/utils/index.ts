@@ -1,6 +1,6 @@
-export const noop:Function = () => {}
+export const noop: Function = () => {};
 
-function download(url: string){
+function download(url: string) {
   const a = document.createElement('a');
   a.style.display = 'none';
   a.href = url;
@@ -13,7 +13,7 @@ function download(url: string){
   }, 100);
 }
 
-export function downloadBlob(blob: Blob){
+export function downloadBlob(blob: Blob) {
   const url = window.URL.createObjectURL(blob);
   download(url);
 }
