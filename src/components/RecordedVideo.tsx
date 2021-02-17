@@ -2,8 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import styled from '@emotion/styled';
 import { useRecoilState } from 'recoil';
 import { recordedBlobAtom } from 'recoilStates/recordState';
-
 import DownloadButton from 'components/DownloadButton';
+import { fixInfinityDuration } from 'utils';
 
 const StyledDownloadButton = styled(DownloadButton)`
   margin-left: auto;
@@ -38,8 +38,8 @@ const RecordedVideo: React.FC = () => {
       if (videoRef.current) {
         videoRef.current.src = window.URL.createObjectURL(recordedBlob);
         videoRef.current.onloadedmetadata = () => {
-          if (videoRef.current && videoRef.current.duration === Infinity) {
-            videoRef.current.currentTime = 1e101;
+          if (videoRef.current) {
+            fixInfinityDuration(videoRef.current);
           }
         };
       } else {
