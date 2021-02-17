@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import styled from '@emotion/styled';
-
 import { formatMinSec } from 'utils/foramt';
 import { centerCss, centerYCss } from 'utils/style';
 import { useRecoilState } from 'recoil';
@@ -13,6 +12,7 @@ import { useDuration } from 'hooks';
 import { css } from '@emotion/react';
 import MediaSourceRecorder from 'utils/MediaSourceRecorder';
 import OpenSourceSelectorButton from './OpenSourceSelectorButton';
+import AudioSourceButton from './AudioSourceButton';
 
 const Self = styled.div`
   position: relative;
@@ -23,7 +23,7 @@ const Self = styled.div`
 const StyledOpenSourceSelectorButton = styled(OpenSourceSelectorButton)`
   ${centerYCss};
   left: 27px;
-`
+`;
 
 const RecordButton = styled.div<{ recording: boolean }>`
   ${centerCss}
@@ -45,12 +45,19 @@ const RecordButton = styled.div<{ recording: boolean }>`
         `}
 `;
 
-const CurrentTime = styled.span<{ recording: boolean }>`
+const RightControls = styled.div`
   ${centerYCss}
   right: 15px;
+  display: inline-flex;
+  width: 105px;
+  align-items: center;
+`;
+
+const CurrentTime = styled.span<{ recording: boolean }>`
   color: ${({ recording }) =>
     recording ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.4)'};
   font-size: 22px;
+  margin-left: auto;
 `;
 
 const PreviewController: React.FC = () => {
@@ -100,7 +107,12 @@ const PreviewController: React.FC = () => {
         onClick={handleToggleRecord}
         recording={recording}
       ></RecordButton>
-      <CurrentTime recording={recording}>{formatMinSec(duration)}</CurrentTime>
+      <RightControls>
+        <AudioSourceButton />
+        <CurrentTime recording={recording}>
+          {formatMinSec(duration)}
+        </CurrentTime>
+      </RightControls>
     </Self>
   );
 };

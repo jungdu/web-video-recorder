@@ -37,23 +37,23 @@ const Self = styled.div`
 `;
 
 interface SourceSelectorProps {
-  onGetStream: (stream: MediaStream) => void;
-  onGetStreamError: (error: Error) => void;
+  onSetStream: (stream: MediaStream) => void;
+  onSetStreamError: (error: Error) => void;
 }
 
 const SourceSelector: React.FC<SourceSelectorProps> = ({
-  onGetStream,
-  onGetStreamError,
+  onSetStream,
+  onSetStreamError,
 }) => {
   return (
     <Self>
       <VideoCamButton
-        onGetStream={onGetStream}
-        onGetStreamError={onGetStreamError}
+        onSetStream={onSetStream}
+        onSetStreamError={onSetStreamError}
       ></VideoCamButton>
       <ScreenButton
-        onGetStream={onGetStream}
-        onGetStreamError={onGetStreamError}
+        onSetStream={onSetStream}
+        onSetStreamError={onSetStreamError}
       ></ScreenButton>
     </Self>
   );

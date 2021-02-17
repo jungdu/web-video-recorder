@@ -55,13 +55,13 @@ const Preview: React.FC = () => {
       <StyledHeader>녹화할 영상</StyledHeader>
       <StyledPreview>
         <StyledVideoContainer>
-          <StyledVideo ref={videoRef} autoPlay></StyledVideo>
+          <StyledVideo ref={videoRef} autoPlay muted></StyledVideo>
         </StyledVideoContainer>
         <PreviewController></PreviewController>
         {!currentStream && (
           <SourceSelector
-            onGetStream={handleGetStream}
-            onGetStreamError={handleGetStreamError}
+            onSetStream={handleGetStream}
+            onSetStreamError={handleGetStreamError}
           ></SourceSelector>
         )}
       </StyledPreview>

@@ -18,10 +18,10 @@ export const DefaultVideoCamButton = () => {
   return (
     <Container>
       <VideoCamButton
-        onGetStream={(stream) => {
+        onSetStream={(stream) => {
           console.log(stream);
         }}
-        onGetStreamError={(error) => {
+        onSetStreamError={(error) => {
           console.log(error);
         }}
       ></VideoCamButton>

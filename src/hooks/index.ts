@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { currentStreamAtom } from 'recoilStates/recordState';
 
 export const useDuration = () => {
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -26,5 +28,39 @@ export const useDuration = () => {
   return {
     setCounting,
     duration,
+  };
+};
+
+export const useAudioStream = () => {
+  const [currentStream] = useRecoilState(currentStreamAtom);
+  const [audioTrack, setAudioTrack] = useState<MediaStreamTrack | null>(null);
+  const [enabled, setEnabled] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (audioTrack) {
+      audioTrack.enabled = enabled;
+    }
+  }, [enabled]);
+
+  useEffect(() => {
+    if (currentStream) {
+      const [newAudioTrack] = currentStream.getAudioTracks();
+      if (newAudioTrack) {
+        setAudioTrack(newAudioTrack);
+        setEnabled(newAudioTrack.enabled);
+      } else {
+        setAudioTrack(null);
+        setEnabled(false);
+      }
+    } else {
+      setAudioTrack(null);
+      setEnabled(false);
+    }
+  }, [currentStream]);
+
+  return {
+    audioTrack,
+    enabled,
+    setEnabled,
   };
 };

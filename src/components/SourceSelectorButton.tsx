@@ -44,16 +44,16 @@ const SourceButton: React.FC<SourceButtonProps> = ({
 
 export const VideoCamButton: React.FC<{
   className?: string;
-  onGetStream: (stream: MediaStream) => void;
-  onGetStreamError: (error: Error) => void;
-}> = ({ onGetStream, onGetStreamError, className }) => {
+  onSetStream: (stream: MediaStream) => void;
+  onSetStreamError: (error: Error) => void;
+}> = ({ onSetStream, onSetStreamError, className }) => {
   const handleClick = (e: React.MouseEvent) => {
-    getUserMedia({ video: true, audio: false })
+    getUserMedia({ video: true, audio: true })
       .then((stream) => {
-        onGetStream(stream);
+        onSetStream(stream);
       })
       .catch((e) => {
-        onGetStreamError(e);
+        onSetStreamError(e);
       });
   };
 
@@ -66,19 +66,36 @@ export const VideoCamButton: React.FC<{
 
 export const ScreenButton: React.FC<{
   className?: string;
-  onGetStream: (stream: MediaStream) => void;
-  onGetStreamError: (error: Error) => void;
-}> = ({ className, onGetStream, onGetStreamError }) => {
-  const handleClick = (e: React.MouseEvent) => {
-    getDisplayMedia({
-      video: true,
-    })
-      .then((stream) => {
-        onGetStream(stream);
-      })
-      .catch((e) => {
-        onGetStreamError(e);
-      });
+  onSetStream: (stream: MediaStream) => void;
+  onSetStreamError: (error: Error) => void;
+}> = ({ className, onSetStream, onSetStreamError }) => {
+  const handleClick = async (e: React.MouseEvent) => {
+    let stream: MediaStream | null = null;
+    try {
+      stream = await getDisplayMedia({ video: true });
+    } catch (e) {
+      onSetStreamError(e);
+      return;
+    }
+
+    if (stream) {
+      let audioStream: MediaStream | null = null;
+      try {
+        audioStream = await navigator.mediaDevices.getUserMedia({
+          audio: true,
+        });
+      } catch (e) {
+        console.log(e);
+        return;
+      }
+
+      if (audioStream) {
+        const [audioTrack] = audioStream.getAudioTracks();
+        stream.addTrack(audioTrack);
+      }
+
+      onSetStream(stream);
+    }
   };
 
   return (

@@ -18,10 +18,10 @@ export const DefaultScreenButton = () => {
   return (
     <Container>
       <ScreenButton
-        onGetStream={(stream) => {
+        onSetStream={(stream) => {
           console.log(stream);
         }}
-        onGetStreamError={(error) => {
+        onSetStreamError={(error) => {
           console.log(error);
         }}
       ></ScreenButton>
