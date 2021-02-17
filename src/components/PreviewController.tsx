@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import styled from '@emotion/styled';
-import { formatMinSec } from 'utils/foramt';
 import { centerCss, centerYCss } from 'utils/style';
 import { useRecoilState } from 'recoil';
 import {
@@ -8,16 +7,20 @@ import {
   currentStreamAtom,
   recordedBlobAtom,
 } from 'recoilStates/recordState';
-import { useDuration } from 'hooks';
 import { css } from '@emotion/react';
 import MediaSourceRecorder from 'utils/MediaSourceRecorder';
 import OpenSourceSelectorButton from './OpenSourceSelectorButton';
 import AudioSourceButton from './AudioSourceButton';
+import CurrentTime from './CurrentTime';
 
 const Self = styled.div`
   position: relative;
   width: 100%;
   height: 75px;
+`;
+
+const StyledCurrentTime = styled(CurrentTime)`
+  margin-left: auto;
 `;
 
 const StyledOpenSourceSelectorButton = styled(OpenSourceSelectorButton)`
@@ -53,18 +56,10 @@ const RightControls = styled.div`
   align-items: center;
 `;
 
-const CurrentTime = styled.span<{ recording: boolean }>`
-  color: ${({ recording }) =>
-    recording ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.4)'};
-  font-size: 22px;
-  margin-left: auto;
-`;
-
 const PreviewController: React.FC = () => {
   const [recording, setRecording] = useRecoilState(recordingAtom);
   const [currentStream] = useRecoilState(currentStreamAtom);
   const [_, setRecordedBlob] = useRecoilState(recordedBlobAtom);
-  const { duration, setCounting } = useDuration();
   const recorderRef = useRef<MediaSourceRecorder | null>(null);
 
   const handleToggleRecord = () => {
@@ -74,7 +69,6 @@ const PreviewController: React.FC = () => {
   // TODO 이 로직들도 컴포넌트에 있을 필요는 없다.
   const startRecord = () => {
     if (currentStream) {
-      setCounting(true);
       recorderRef.current = new MediaSourceRecorder(currentStream, (blob) => {
         console.log('blob :', blob);
         setRecordedBlob(blob);
@@ -86,7 +80,6 @@ const PreviewController: React.FC = () => {
   };
 
   const endRecord = () => {
-    setCounting(false);
     if (recorderRef.current) {
       recorderRef.current.stop();
     }
@@ -109,9 +102,7 @@ const PreviewController: React.FC = () => {
       ></RecordButton>
       <RightControls>
         <AudioSourceButton />
-        <CurrentTime recording={recording}>
-          {formatMinSec(duration)}
-        </CurrentTime>
+        <StyledCurrentTime />
       </RightControls>
     </Self>
   );

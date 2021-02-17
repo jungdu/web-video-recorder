@@ -2,9 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { currentStreamAtom } from 'recoilStates/recordState';
 
-export const useDuration = () => {
+export const useDuration = (counting: boolean) => {
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const [counting, setCounting] = useState<boolean>(false);
   const [duration, setDuration] = useState<number>(0);
 
   useEffect(() => {
@@ -25,10 +24,7 @@ export const useDuration = () => {
     }
   }, [counting]);
 
-  return {
-    setCounting,
-    duration,
-  };
+  return duration;
 };
 
 export const useAudioStream = () => {
