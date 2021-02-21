@@ -9,7 +9,7 @@ import SourceSelector from 'components/SourceSelector';
 
 const StyledPreviewContainer = styled.div`
   width: 100%;
-  margin: 120px auto;
+  margin: 120px auto 220px;
   max-width: 700px;
 `;
 
