@@ -25,6 +25,7 @@ const StyledHeader = styled.div`
 
 const StyledVideo = styled.video`
   width: 100%;
+  max-height: 600px;
 `;
 
 const StyledVideoContainer = styled.div`
