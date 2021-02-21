@@ -52,7 +52,7 @@ const Preview: React.FC = () => {
 
   return (
     <StyledPreviewContainer>
-      <StyledHeader>녹화할 영상</StyledHeader>
+      <StyledHeader>녹화할 화면</StyledHeader>
       <StyledPreview>
         <StyledVideoContainer>
           <StyledVideo ref={videoRef} autoPlay muted></StyledVideo>
