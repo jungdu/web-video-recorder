@@ -18,10 +18,6 @@ const StyledPreview = styled.div`
   filter: drop-shadow(0px 9px 15px rgba(0, 0, 0, 0.4));
 `;
 
-const StyledHeader = styled.div`
-  font-size: 25px;
-  margin-bottom: 20px;
-`;
 
 const StyledVideo = styled.video`
   width: 100%;
@@ -52,7 +48,6 @@ const Preview: React.FC = () => {
 
   return (
     <StyledPreviewContainer>
-      <StyledHeader>녹화할 영상</StyledHeader>
       <StyledPreview>
         <StyledVideoContainer>
           <StyledVideo ref={videoRef} autoPlay muted></StyledVideo>
