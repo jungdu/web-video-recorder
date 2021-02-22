@@ -15,34 +15,45 @@ const StyledLogoContainer = styled.div`
   margin-bottom: 20px;
 `;
 
-const Logo = styled.div`
+const StyledLogo = styled.div`
   width: 55px;
   height: 55px;
   background-image: url(${LogoPng});
   background-size: cover;
 `;
 
-const Text = styled.div`
+const StyledText = styled.div`
   display: flex;
   color: #585858;
   justify-content: center;
 `;
 
-const Link = styled.a`
+const StyledLink = styled.a`
   margin-left: 7px;
   color: #000;
   font-weight: bold;
+`;
+
+const StyledHitsContainer = styled.div`
+  text-align: center;
+  margin-top: 15px;
 `;
 
 const Footer: React.FC = () => {
   return (
     <StyledFooter>
       <StyledLogoContainer>
-        <Logo></Logo>
+        <StyledLogo></StyledLogo>
       </StyledLogoContainer>
-      <Text>
-        Powered by <Link href="https://github.com/jungdu">Jungdu</Link>
-      </Text>
+      <StyledText>
+        Powered by
+        <StyledLink href="https://github.com/jungdu">Jungdu</StyledLink>
+      </StyledText>
+      <StyledHitsContainer>
+        <a href="https://hits.seeyoufarm.com">
+          <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fnice-coast-0d9da6500.azurestaticapps.net&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=today%2Ftotal&edge_flat=false" />
+        </a>
+      </StyledHitsContainer>
     </StyledFooter>
   );
 };

@@ -31,10 +31,10 @@ const VideoCamButton = styled(VideoCamButtonOrig)`
 const StyledHeader = styled.div`
   text-align: center;
   font-size: 28px;
-  color: rgba(255,255,255, 0.9);
+  color: rgba(255, 255, 255, 0.9);
   margin-top: 25px;
   letter-spacing: 0.8px;
-`
+`;
 
 const ScreenButton = styled(ScreenButtonOrig)`
   ${centerYCss};
@@ -48,7 +48,6 @@ const ScreenButton = styled(ScreenButtonOrig)`
   }
 `;
 
-
 interface SourceSelectorProps {
   onSetStream: (stream: MediaStream) => void;
   onSetStreamError: (error: Error) => void;
@@ -60,9 +59,7 @@ const SourceSelector: React.FC<SourceSelectorProps> = ({
 }) => {
   return (
     <StyledSourceSelector>
-      <StyledHeader>
-        Select Source
-      </StyledHeader>
+      <StyledHeader>Select Source</StyledHeader>
       <VideoCamButton
         onSetStream={onSetStream}
         onSetStreamError={onSetStreamError}
