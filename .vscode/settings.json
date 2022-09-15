@@ -1,5 +1,7 @@
 {
   "staticWebApps.appSubpath": "/",
   "staticWebApps.apiSubpath": "api",
-  "staticWebApps.outputSubpath": "build"
+  "staticWebApps.outputSubpath": "build",
+  "appService.defaultWebAppToDeploy": "/subscriptions/8ab4aff6-6f51-44c4-9e18-75f3a5d73c47/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/video-recorder",
+  "appService.deploySubpath": "."
 }
